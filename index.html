@@ -1,0 +1,17 @@
+function triggerMorph(direction) {
+  if (!isTransitioning) { 
+    targetShape = (currentShape + direction + TOTAL_SHAPES) % TOTAL_SHAPES;
+    isTransitioning = true;
+    morphProgress = 0;
+    updateInfo(targetShape);
+  }
+}
+btnPrev.addEventListener('click', () => triggerMorph(-1));
+btnNext.addEventListener('click', () => triggerMorph(1));
+window.addEventListener('resize', () => {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+  updateCameraZ();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  composer.setSize(window.innerWidth, window.innerHeight);
+});
